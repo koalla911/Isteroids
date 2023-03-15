@@ -241,8 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6d1888ce1883b4da0be7a4981c1f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  degrees: 150
+  shipConfig: {fileID: 11400000, guid: 2c372901d2feef84ab482d4a51637476, type: 2}
   flame: {fileID: 45941235}
 --- !u!4 &1164844925
 Transform:
