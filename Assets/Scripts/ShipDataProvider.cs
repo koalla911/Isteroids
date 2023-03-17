@@ -22,11 +22,11 @@ namespace Game
 
 			if (Input.GetKey(KeyCode.A))
 			{
-				angularVelocity -= shipConfig.AngularThrust * Time.deltaTime;
+				angularVelocity += shipConfig.AngularThrust * Time.deltaTime;
 			}
 			else if (Input.GetKey(KeyCode.D))
 			{
-				angularVelocity += shipConfig.AngularThrust * Time.deltaTime;
+				angularVelocity -= shipConfig.AngularThrust * Time.deltaTime;
 
 			}
 			else
@@ -36,42 +36,21 @@ namespace Game
 
 			if (Input.GetKey(KeyCode.W))
 			{
-				velocity.x += shipConfig.ForwardThrust * Mathf.Sin(angularVelocity) * Time.deltaTime;
-				velocity.y += shipConfig.ForwardThrust * Mathf.Cos(angularVelocity) * Time.deltaTime;
+				float bearingRad = bearing * Mathf.PI / 180;
+				velocity.x += shipConfig.ForwardThrust * Mathf.Sin(bearingRad) * Time.deltaTime;
+				velocity.y += shipConfig.ForwardThrust * Mathf.Cos(bearingRad) * Time.deltaTime;
 			}
 			else
 			{
-				velocity.x *= 0.99f;
-				velocity.y *= 0.99f;
 			}
 
-			position = velocity * Time.deltaTime;
-			bearing = angularVelocity * Time.deltaTime;
+			position += velocity * Time.deltaTime;
+			transform.position = new Vector3(position.x, position.y, 0);
 
-			transform.position += new Vector3(position.x, position.y, transform.up.z);
-			transform.rotation *= Quaternion.AngleAxis(bearing, Vector3.forward);
+			transform.rotation = Quaternion.Euler(0, 0, bearing);
+			bearing += angularVelocity * Time.deltaTime;
 
 			Wrapping();
-		}
-
-		private void Movement()
-		{
-			if (Input.GetKey(KeyCode.W))
-			{
-				//this.transform.position += speed * Time.deltaTime * transform.up;
-			}
-		}
-
-		private void Rotation()
-		{
-			if (Input.GetKey(KeyCode.A))
-			{
-				//this.transform.eulerAngles += degrees * Time.deltaTime * Vector3.forward;
-			}
-			else if (Input.GetKey(KeyCode.D))
-			{
-				//this.transform.eulerAngles += degrees * Time.deltaTime * Vector3.back;
-			}
 		}
 
 		private void Wrapping()
