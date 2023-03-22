@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f95adb4cf2c46b40993ffc82482dc0c, type: 3}
   m_Name: ShipConfigData
   m_EditorClassIdentifier: 
-  forwardThrust: 20
+  forwardThrust: 5
   angularThrust: 200
