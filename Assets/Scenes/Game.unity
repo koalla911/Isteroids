@@ -243,7 +243,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipConfig: {fileID: 11400000, guid: 2c372901d2feef84ab482d4a51637476, type: 2}
   thrusterForward: {fileID: 799293965}
-  thrusterBack: {fileID: 0}
+  thrusterBack: {fileID: 1436030258}
+  velocity: {x: 0, y: 0}
 --- !u!4 &1164844925
 Transform:
   m_ObjectHideFlags: 0
@@ -344,6 +345,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1436030258 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1400420817260280, guid: 401d8aca9e846254890399f66cd7de66, type: 3}
+  m_PrefabInstance: {fileID: 1469732490}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1469732490
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -351,6 +357,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1164844925}
     m_Modifications:
+    - target: {fileID: 1400420817260280, guid: 401d8aca9e846254890399f66cd7de66, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1512782934554904, guid: 401d8aca9e846254890399f66cd7de66, type: 3}
       propertyPath: m_Name
       value: ship1

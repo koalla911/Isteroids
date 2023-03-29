@@ -9,6 +9,9 @@ namespace Game
 		[SerializeField] private float forwardThrust = default;
 		public float ForwardThrust => forwardThrust;
 
+		[SerializeField] private float backThrust = default;
+		public float BackThrust => backThrust;
+
 		[SerializeField] private float angularThrust = default;
 		public float AngularThrust => angularThrust;
 

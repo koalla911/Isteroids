@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: ShipConfigData
   m_EditorClassIdentifier: 
   forwardThrust: 5
-  angularThrust: 200
+  backThrust: 30
+  angularThrust: 400

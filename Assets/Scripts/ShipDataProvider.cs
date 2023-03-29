@@ -10,7 +10,7 @@ namespace Game
 		[SerializeField] private GameObject thrusterForward = default;
 		[SerializeField] private GameObject thrusterBack = default;
 		private Vector2 position = default;
-		private Vector2 velocity = default;
+		[SerializeField] private Vector2 velocity = default;
 		private float bearing = default;
 		private float angularVelocity = default;
 
@@ -20,16 +20,17 @@ namespace Game
 			{
 				thrusterForward.SetActive(Input.GetKey(KeyCode.W));
 			}
+			
+			if (thrusterBack)
+			{
+				thrusterBack.SetActive(velocity.x >= 0.5f || velocity.y >= 0.5f);
+			}
 
 			ProcessInput(new Vector2(-Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
-			
+			Move();
+
 			transform.position = new Vector3(position.x, position.y, 0);
 			transform.rotation = Quaternion.Euler(0, 0, bearing);
-
-			var r = WrapCoordinates(transform.position);
-			var c = Camera.main.ScreenToWorldPoint(r);
-			Debug.Log(c);
-			transform.position = new Vector3(c.x, c.y, 0);
 		}
 
 		public void ProcessInput(Vector2 input)
@@ -38,6 +39,10 @@ namespace Game
 			{
 				angularVelocity += shipConfig.AngularThrust * Time.deltaTime * input.x;
 			}
+			else
+			{
+				angularVelocity -= shipConfig.AngularThrust * 2 * Time.deltaTime * Mathf.Sign(angularVelocity);
+			}
 
 			if (Mathf.Abs(input.y) > 0)
 			{
@@ -45,9 +50,26 @@ namespace Game
 				velocity.x += shipConfig.ForwardThrust * Mathf.Cos(bearingRad) * Time.deltaTime;
 				velocity.y += shipConfig.ForwardThrust * Mathf.Sin(bearingRad) * Time.deltaTime;
 			}
+			else
+			{
+				if (velocity.x != 0f)
+				{
+					velocity.x -= velocity.x * Time.deltaTime;
+				}
 
+				if (velocity.y != 0f)
+				{
+					velocity.y -= velocity.y * Time.deltaTime;
+				}
+			}
+		}
+
+		public void Move()
+		{
 			position += velocity * Time.deltaTime;
 			bearing += angularVelocity * Time.deltaTime;
+
+			position = WrapCoordinates(position);
 		}
 
 		private Vector2 WrapCoordinates(Vector2 position)
@@ -76,9 +98,7 @@ namespace Game
 				output.y = screenPos.y - Screen.height;
 			}
 
-			//Debug.Log(screenPos);
-
-			return output;
+			return Camera.main.ScreenToWorldPoint(output);
 		}
 	}
 }
